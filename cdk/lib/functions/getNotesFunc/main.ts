@@ -15,6 +15,8 @@ async function scanAndUnmarshall(sub: string) {
             ExpressionAttributeValues: {
                 ':sub': { S: sub },
             },
+            IndexName: 'TimestampIndex',
+            ScanIndexForward: false,
         };
 
         const results = await client.send(new QueryCommand(params));

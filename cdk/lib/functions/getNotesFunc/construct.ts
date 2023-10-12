@@ -21,13 +21,13 @@ export const createGetNotesFunc = (scope: Construct, props: GetNotesFuncProps) =
         handler: 'handler',
         entry: path.join(__dirname, `./main.ts`),
         environment: {
-            BOOKS_TABLE_NAME: props.enviromentVars.notesTableName
+            NOTES_TABLE_NAME: props.enviromentVars.notesTableName
         }
     })
 
     getBooksFunc.addToRolePolicy(new PolicyStatement({
         actions: ['dynamodb:Query'],
-        resources: [props.notesTableArn]
+        resources: [props.notesTableArn, `${props.notesTableArn}/index/TimestampIndex`]
     }))
 
     return getBooksFunc
