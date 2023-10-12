@@ -1,19 +1,19 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import { BookProps } from '@/types/types'
+import { NoteProps } from '@/types/types'
 import { MinusCircledIcon, Pencil2Icon } from '@radix-ui/react-icons'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import { deleteBook } from './deleteBook'
-import { useBookStore } from '@/store/bookStore'
+import { deleteNote } from './deleteNote'
+import { useNoteStore } from '@/store/noteStore'
 import { getUser } from '@/lib/getUser'
 import { CognitoUserSession } from 'amazon-cognito-identity-js'
 
-const CardButtons = ({ book }: BookProps) => {
-  const { title, NoteId } = book
+const CardButtons = ({ note }: NoteProps) => {
+  const { title, NoteId } = note
   console.log(title, NoteId)
   const { push } = useRouter()
-  const { books, setBooks } = useBookStore()
+  const { notes, setNotes } = useNoteStore()
 
   const handleEdit = () => {
     push(`/edit?id=${NoteId}&title=${title}`)
@@ -26,11 +26,11 @@ const CardButtons = ({ book }: BookProps) => {
       const { session } = await getUser() as { session: CognitoUserSession }
       const jwt = session.getIdToken().getJwtToken()
 
-      const res = await deleteBook({ NoteId, jwt })
+      const res = await deleteNote({ NoteId, jwt })
       if (res) {
       // console.log('success')
-        const newBooks = books.filter((book) => book.NoteId !== NoteId)
-        setBooks(newBooks)
+        const newNotes = notes.filter((note) => note.NoteId !== NoteId)
+        setNotes(newNotes)
       } else {
       // console.log('error')
       }

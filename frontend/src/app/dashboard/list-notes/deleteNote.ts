@@ -1,4 +1,4 @@
-export async function deleteBook({ NoteId, jwt }: { NoteId: string, jwt: string }) {
+export async function deleteNote({ NoteId, jwt }: { NoteId: string, jwt: string }) {
     const baseURL = process.env.APIGatewayURL;
 
     try {
@@ -17,7 +17,7 @@ export async function deleteBook({ NoteId, jwt }: { NoteId: string, jwt: string 
 
         return response;
     } catch (error) {
-        console.error(`Error in deleteBook: ${error}`);
+        console.error(`Error in deleteNote: ${error}`);
         return null;
     }
 }

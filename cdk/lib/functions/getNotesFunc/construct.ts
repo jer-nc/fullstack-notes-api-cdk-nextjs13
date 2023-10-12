@@ -5,7 +5,7 @@ import { Construct } from "constructs";
 import * as path from 'path';
 
 // Explanation: 
-// This function is used to get all books from the books table.
+// This function is used to get all notes from the notes table.
 
 type GetNotesFuncProps = {
     functionName: string
@@ -15,7 +15,7 @@ type GetNotesFuncProps = {
 
 export const createGetNotesFunc = (scope: Construct, props: GetNotesFuncProps) => {
 
-    const getBooksFunc = new NodejsFunction(scope, `${props.functionName}`, {
+    const getNotesFunc = new NodejsFunction(scope, `${props.functionName}`, {
         functionName: `${props.functionName}`,
         runtime: Runtime.NODEJS_18_X,
         handler: 'handler',
@@ -25,10 +25,12 @@ export const createGetNotesFunc = (scope: Construct, props: GetNotesFuncProps) =
         }
     })
 
-    getBooksFunc.addToRolePolicy(new PolicyStatement({
+    // Explanation:
+    // Policies are used to grant permissions to DynamoDB and Indexes.
+    getNotesFunc.addToRolePolicy(new PolicyStatement({
         actions: ['dynamodb:Query'],
         resources: [props.notesTableArn, `${props.notesTableArn}/index/TimestampIndex`]
     }))
 
-    return getBooksFunc
+    return getNotesFunc
 }

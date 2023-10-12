@@ -18,24 +18,19 @@ export type ConfirmRegistrationValues = {
 
 // BOOKS
 
-export type BookProps = {
-    book: {
+export type NoteProps = {
+    note: {
         NoteId: string
         title: string
-        author: string
         description: string
-        year: string
-        Timestamp: string
+        Timestamp?: string
     }
 }
 
-export type BookResponse = {
-    id: string
+export type NoteResponse = {
     title: string
-    author?: string
     description: string
-    year?: string
     jwt?: string
     NoteId: string
-    Timestamp: string
+    Timestamp?: string
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import ListBooks from './list-books/ListBooks'
+import ListNotes from './list-notes/ListNotes'
 
 const page = () => {
   return (
@@ -8,7 +8,7 @@ const page = () => {
       <p className='mt-2'>
         This is a dashboard page. You can only see this if you are logged in. If you are not logged in, you will be redirected to the login page.
       </p> */}
-      <ListBooks />
+      <ListNotes />
     </div>
   )
 }

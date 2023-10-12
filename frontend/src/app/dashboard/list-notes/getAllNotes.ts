@@ -1,4 +1,4 @@
-export async function getAllBooks(jwt : string) {
+export async function getAllNotes(jwt : string) {
     const baseURL = process.env.APIGatewayURL;
     try {
         const response = await fetch(`${baseURL}`, {
@@ -10,13 +10,13 @@ export async function getAllBooks(jwt : string) {
         });
 
         if (!response.ok) {
-            throw new Error(`Error fetching books: ${response.statusText}`);
+            throw new Error(`Error fetching notes: ${response.statusText}`);
         }
 
-        const books = await response.json();
-        return books;
+        const notes = await response.json();
+        return notes;
     } catch (error) {
-        console.error(`Error in getAllBooks: ${error}`);
+        console.error(`Error in getAllNotes: ${error}`);
         return null; // Retorna null en caso de error
     }
 }

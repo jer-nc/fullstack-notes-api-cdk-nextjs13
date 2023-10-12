@@ -1,13 +1,13 @@
-import { BookResponse } from "@/types/types";
+import { NoteResponse } from "@/types/types";
 
-export async function editBook(book: BookResponse) {
-    const { title, id, description, jwt } = book
+export async function editNote(note: NoteResponse) {
+    const { title, NoteId, description, jwt } = note
 
     const baseURL = process.env.APIGatewayURL;
 
-    const bookToEdit = {
+    const noteToEdit = {
         title,
-        NoteId: id,
+        NoteId: NoteId,
         description,
     };
 
@@ -18,16 +18,16 @@ export async function editBook(book: BookResponse) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwt}`,
             },
-            body: JSON.stringify(bookToEdit)
+            body: JSON.stringify(noteToEdit)
         });
 
         if (!response.ok) {
-            throw new Error(`Error editing book: ${response.statusText}`);
+            throw new Error(`Error editing note: ${response.statusText}`);
         }
 
         return response;
     } catch (error) {
-        console.error(`Error in editBook: ${error}`);
+        console.error(`Error in editNote: ${error}`);
         return null;
     }
 }

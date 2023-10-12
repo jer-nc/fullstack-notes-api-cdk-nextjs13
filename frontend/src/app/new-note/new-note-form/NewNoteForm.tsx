@@ -1,6 +1,6 @@
 'use client'
 
-import { newBookSchema } from "@/schemas/new-book-schema"
+import { newNoteSchema } from "@/schemas/new-note-schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import * as z from "zod"
@@ -9,37 +9,35 @@ import { Input } from "@/components/ui/input"
 import { BookmarkIcon, FileTextIcon, LapTimerIcon, PersonIcon, TextIcon } from "@radix-ui/react-icons"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { createBook } from "./createBook"
+import { createNote } from "./createNote"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { getUser } from "@/lib/getUser"
 import { CognitoUserSession } from "amazon-cognito-identity-js"
 
-const NewBookForm = () => {
+const NewNoteForm = () => {
   const [loading, setLoading] = useState(false)
   const { push } = useRouter()
-  const form = useForm<z.infer<typeof newBookSchema>>({
-    resolver: zodResolver(newBookSchema),
+  
+  const form = useForm<z.infer<typeof newNoteSchema>>({
+    resolver: zodResolver(newNoteSchema),
     defaultValues: {
       title: "",
-      author: "",
       description: "",
-      year: ""
     },
   })
 
 
   async function onSubmit() {
-    const { title, author, description, year } = form.getValues()
+    const { title, description } = form.getValues()
 
     try {
       setLoading(true)
-      // const book = { title, author }ç
       const { session } = await getUser() as { session: CognitoUserSession }
 
       if (session) {
         const jwt = session.getIdToken().getJwtToken()
-        const res = await createBook({ title, author, description, year, jwt }) as any
+        const res = await createNote({ title, description, jwt }) as any
 
       // console.log(res)
         if (res?.ok) {
@@ -70,7 +68,7 @@ const NewBookForm = () => {
                 <FormControl>
                   <>
                     <div className="relative">
-                      <Input disabled={loading} className='py-6 bg-gray-100 pl-10' placeholder="Book Title" {...field} />
+                      <Input disabled={loading} className='py-6 bg-gray-100 pl-10' placeholder="Note Title" {...field} />
                       <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
                         <TextIcon className='text-muted-foreground' />
                       </div>
@@ -82,26 +80,7 @@ const NewBookForm = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="author"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <>
-                    <div className="relative">
-                      <Input disabled={loading} className='py-6 bg-gray-100 pl-10' type='text' placeholder="Author" {...field} />
-                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                        <PersonIcon className='text-muted-foreground' />
-                      </div>
-
-                    </div>
-                  </>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        
           <FormField
             control={form.control}
             name="description"
@@ -113,26 +92,6 @@ const NewBookForm = () => {
                       <Textarea disabled={loading} className='pt-5 bg-gray-100 pl-10 min-h-[200px]' placeholder="Description" {...field} />
                       <div className="absolute left-3 top-8 transform -translate-y-1/2">
                         <FileTextIcon className='text-muted-foreground' />
-                      </div>
-
-                    </div>
-                  </>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="year"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <>
-                    <div className="relative">
-                      <Input disabled={loading} className='py-6 bg-gray-100 pl-10' type='number' placeholder="Year" {...field} />
-                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                        <LapTimerIcon className='text-muted-foreground' />
                       </div>
 
                     </div>
@@ -165,4 +124,4 @@ const NewBookForm = () => {
   )
 }
 
-export default NewBookForm
+export default NewNoteForm
