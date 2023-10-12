@@ -5,6 +5,7 @@ import { createNotesTable } from './database/notesTable';
 import { createPutNotesFunc } from './functions/putNoteFunc/construct';
 import { createGetNotesFunc } from './functions/getNotesFunc/construct';
 import { createCRUDLAPIGateway } from './api/apigateway';
+import { createDeleteNotesFunc } from './functions/deleteNoteFunc/construct';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class CdkStack extends cdk.Stack {
@@ -39,17 +40,26 @@ export class CdkStack extends cdk.Stack {
       }
     })
 
-       // Create the API Gateway for the Books API (/books)
-       const notesAPI = createCRUDLAPIGateway(this, {
-        apiName: 'NotesAPI',
-        baseResourceName: 'notes',
-        getAllBaseFunc: getBooksFunc,
-        putItemBaseFunc: putNotesFunc,
-        // deleteItemBaseFunc: deleteNotesFunc,
-        leafResourceName: 'noteId',
-        // getItemLeafFunc: getItemBooksFunc,
-        userPoolClient: userPoolClient
-      })
+    // Create the deleteBooksFunc Lambda function
+    const deleteNotesFunc = createDeleteNotesFunc(this, {
+      functionName: 'deleteNotesFunc',
+      notesTableArn: notesTable.tableArn,
+      enviromentVars: {
+        notesTableName: notesTable.tableName
+      }
+    })
+
+    // Create the API Gateway for the Books API (/books)
+    const notesAPI = createCRUDLAPIGateway(this, {
+      apiName: 'NotesAPI',
+      baseResourceName: 'notes',
+      getAllBaseFunc: getBooksFunc,
+      putItemBaseFunc: putNotesFunc,
+      deleteItemBaseFunc: deleteNotesFunc,
+      leafResourceName: 'noteId',
+      // getItemLeafFunc: getItemBooksFunc,
+      userPoolClient: userPoolClient
+    })
 
   }
 }

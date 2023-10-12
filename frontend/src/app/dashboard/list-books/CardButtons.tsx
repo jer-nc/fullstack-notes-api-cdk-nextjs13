@@ -10,13 +10,13 @@ import { getUser } from '@/lib/getUser'
 import { CognitoUserSession } from 'amazon-cognito-identity-js'
 
 const CardButtons = ({ book }: BookProps) => {
-  const { title, id } = book
-  // console.log(title, author, description, year, id)
+  const { title, NoteId } = book
+  console.log(title, NoteId)
   const { push } = useRouter()
   const { books, setBooks } = useBookStore()
 
   const handleEdit = () => {
-    push(`/edit?id=${id}&title=${title}`)
+    push(`/edit?id=${NoteId}&title=${title}`)
   }
 
 
@@ -26,10 +26,10 @@ const CardButtons = ({ book }: BookProps) => {
       const { session } = await getUser() as { session: CognitoUserSession }
       const jwt = session.getIdToken().getJwtToken()
 
-      const res = await deleteBook({ id, jwt })
+      const res = await deleteBook({ NoteId, jwt })
       if (res) {
       // console.log('success')
-        const newBooks = books.filter((book) => book.id !== id)
+        const newBooks = books.filter((book) => book.NoteId !== NoteId)
         setBooks(newBooks)
       } else {
       // console.log('error')

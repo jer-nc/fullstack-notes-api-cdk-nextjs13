@@ -8,7 +8,7 @@ type CRUDLAPIGatewayProps = {
     leafResourceName: string
     getAllBaseFunc: IFunction
     putItemBaseFunc: IFunction
-    // deleteItemBaseFunc: IFunction
+    deleteItemBaseFunc: IFunction
     // getItemLeafFunc: IFunction
     userPoolClient: any
 }
@@ -37,7 +37,7 @@ export const createCRUDLAPIGateway = (scope: Construct, props: CRUDLAPIGatewayPr
     // Lambda integrations for each method of the API resource (GET, POST, PUT, DELETE)
     const getAllBaseIntegration = new LambdaIntegration(props.getAllBaseFunc)
     const putItemBaseIntegration = new LambdaIntegration(props.putItemBaseFunc)
-    // const deleteItemBaseIntegration = new LambdaIntegration(props.deleteItemBaseFunc)
+    const deleteItemBaseIntegration = new LambdaIntegration(props.deleteItemBaseFunc)
     // const getItemLeafIntegration = new LambdaIntegration(props.getItemLeafFunc)
 
     // Add the PUT, POST and DELETE methods to the base resource
@@ -84,12 +84,12 @@ export const createCRUDLAPIGateway = (scope: Construct, props: CRUDLAPIGatewayPr
 
 
     // Add the DELETE method to the base resource with authorizer
-    // baseResource.addMethod('DELETE', deleteItemBaseIntegration, {
-    //     authorizationType: AuthorizationType.COGNITO,
-    //     authorizer: {
-    //         authorizerId: authorizer.ref
-    //     }
-    // })
+    baseResource.addMethod('DELETE', deleteItemBaseIntegration, {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: {
+            authorizerId: authorizer.ref
+        }
+    })
 
     // Add the GET method to the leaf resource with authorizer 
     // leafResource.addMethod('GET', getItemLeafIntegration, {

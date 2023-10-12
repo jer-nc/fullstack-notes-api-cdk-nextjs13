@@ -20,7 +20,7 @@ export type ConfirmRegistrationValues = {
 
 export type BookProps = {
     book: {
-        id: string
+        NoteId: string
         title: string
         author: string
         description: string
@@ -35,4 +35,5 @@ export type BookResponse = {
     description: string
     year: string
     jwt?: string
+    NoteId: string
 }

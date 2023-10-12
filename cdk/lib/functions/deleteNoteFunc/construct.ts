@@ -4,31 +4,28 @@ import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
 import * as path from 'path';
 
-// Explanation: 
-// This function is used to get all books from the books table.
-
-type GetNotesFuncProps = {
+type deleteNotesFuncProps = {
     functionName: string
     notesTableArn: string
     enviromentVars: { notesTableName: string }
 }
 
-export const createGetNotesFunc = (scope: Construct, props: GetNotesFuncProps) => {
-
-    const getBooksFunc = new NodejsFunction(scope, `${props.functionName}`, {
+export const createDeleteNotesFunc = (scope: Construct, props: deleteNotesFuncProps) => {
+    const deleteNotesFunc = new NodejsFunction(scope, `${props.functionName}`, {
         functionName: `${props.functionName}`,
         runtime: Runtime.NODEJS_18_X,
         handler: 'handler',
         entry: path.join(__dirname, `./main.ts`),
         environment: {
-            BOOKS_TABLE_NAME: props.enviromentVars.notesTableName
+            NOTES_TABLE_NAME: props.enviromentVars.notesTableName
         }
     })
 
-    getBooksFunc.addToRolePolicy(new PolicyStatement({
-        actions: ['dynamodb:Query'],
-        resources: [props.notesTableArn]
-    }))
+    deleteNotesFunc.addToRolePolicy(
+        new PolicyStatement({
+            actions: ['dynamodb:DeleteItem'],
+            resources: [props.notesTableArn]
+        }))
 
-    return getBooksFunc
+    return deleteNotesFunc
 }

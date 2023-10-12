@@ -1,14 +1,14 @@
-export async function deleteBook({ id, jwt }: { id: string, jwt: string }) {
+export async function deleteBook({ NoteId, jwt }: { NoteId: string, jwt: string }) {
     const baseURL = process.env.APIGatewayURL;
 
     try {
-        const response = await fetch(`${baseURL}/books`, {
+        const response = await fetch(`${baseURL}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwt}`,
             },
-            body: JSON.stringify({ id })
+            body: JSON.stringify({ NoteId })
         });
 
         if (!response.ok) {
