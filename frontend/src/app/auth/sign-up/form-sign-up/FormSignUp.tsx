@@ -148,7 +148,7 @@ const FormSignUp = () => {
                     )}
                     <div className='pt-4 flex gap-2 items-center'>
                         <p className='text-sm text-muted-foreground'>Do you already have an account?</p>
-                        <Link href='/auth/sign-in' className='text-blue-500 font-semibold hover:underline'>
+                        <Link href='/auth/sign-in' className='text-orange-500 font-semibold hover:underline'>
                             Sign In
                         </Link>
                     </div>

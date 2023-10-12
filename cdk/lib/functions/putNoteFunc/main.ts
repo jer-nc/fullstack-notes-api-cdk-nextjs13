@@ -1,5 +1,5 @@
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
-import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
+import { marshall } from '@aws-sdk/util-dynamodb';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,7 +10,7 @@ async function lambdaHandler(event: any): Promise<any> {
     // Parse the request body from the frontend
     const itemData = JSON.parse(event.body);
     // Set unique id for the item if it doesn't exist
-    itemData.id = itemData.id ?? uuidv4();
+    itemData.NoteId = itemData.NoteId ?? uuidv4();
     const date = new Date().toISOString();
     const sub = event.requestContext.authorizer.claims.sub;
 
@@ -18,7 +18,7 @@ async function lambdaHandler(event: any): Promise<any> {
     console.log('sub: ', sub)
 
     const newNote = {
-        NoteId: itemData.id,
+        NoteId: itemData.NoteId,
         UserId: sub,
         title: itemData.title,
         description: itemData.description,

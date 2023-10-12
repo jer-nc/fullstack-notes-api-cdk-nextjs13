@@ -1,7 +1,7 @@
 import GoBackButton from '@/components/custom/GoBackButton'
 import AppLayout from '@/layouts/AppLayout'
 import React from 'react'
-import EditBookForm from './edit-book/EditBookForm'
+import EditNoteForm from './edit-note/EditNoteForm'
 
 const page = () => {
 
@@ -10,10 +10,10 @@ const page = () => {
             <div className='flex justify-between gap-4 items-center  pb-8'>
                 <div className='flex gap-4 items-center'>
                     <GoBackButton />
-                    <h1 className='text-2xl font-semibold'>Edit Book</h1>
+                    <h1 className='text-2xl font-semibold'>Edit Note</h1>
                 </div>
             </div>
-            <EditBookForm />
+            <EditNoteForm />
         </AppLayout>
     )
 }

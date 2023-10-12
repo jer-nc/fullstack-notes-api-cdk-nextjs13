@@ -6,18 +6,18 @@ import {
 } from "@/components/ui/popover"
 import { DotsVerticalIcon } from '@radix-ui/react-icons'
 import CardButtons from './CardButtons'
-import { BookProps } from '@/types/types'
+import { NoteProps } from '@/types/types'
 
 
 
-const PopoverCard = ({ book }  : BookProps) => {
+const PopoverCard = ({ note }  : NoteProps) => {
     return (
         <Popover>
             <PopoverTrigger className='w-10 h-10 hover:bg-gray-100 rounded-md flex justify-center items-center'>
                 <DotsVerticalIcon />
             </PopoverTrigger>
             <PopoverContent align='start'>
-                <CardButtons book={book} />
+                <CardButtons note={note} />
             </PopoverContent>
         </Popover>
     )

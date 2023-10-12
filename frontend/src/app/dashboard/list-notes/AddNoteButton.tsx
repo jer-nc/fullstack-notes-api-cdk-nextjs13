@@ -4,19 +4,19 @@ import { PlusCircledIcon } from '@radix-ui/react-icons'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const AddBookButton = () => {
+const AddNoteButton = () => {
     const { push } = useRouter()
 
     const handleNavigate = () => {
-        push('/new-book')
+        push('/new-note')
     }
 
     return (
         <Button onClick={handleNavigate} size='primary' variant='default' className='gap-2'>
-            New Book
+            New Note
             <PlusCircledIcon />
         </Button>
     )
 }
 
-export default AddBookButton
+export default AddNoteButton

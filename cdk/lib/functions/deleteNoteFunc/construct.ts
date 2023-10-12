@@ -4,18 +4,14 @@ import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
 import * as path from 'path';
 
-// Explanation: 
-// This function is used to get all notes from the notes table.
-
-type GetNotesFuncProps = {
+type deleteNotesFuncProps = {
     functionName: string
     notesTableArn: string
     enviromentVars: { notesTableName: string }
 }
 
-export const createGetNotesFunc = (scope: Construct, props: GetNotesFuncProps) => {
-
-    const getNotesFunc = new NodejsFunction(scope, `${props.functionName}`, {
+export const createDeleteNotesFunc = (scope: Construct, props: deleteNotesFuncProps) => {
+    const deleteNotesFunc = new NodejsFunction(scope, `${props.functionName}`, {
         functionName: `${props.functionName}`,
         runtime: Runtime.NODEJS_18_X,
         handler: 'handler',
@@ -25,12 +21,11 @@ export const createGetNotesFunc = (scope: Construct, props: GetNotesFuncProps) =
         }
     })
 
-    // Explanation:
-    // Policies are used to grant permissions to DynamoDB and Indexes.
-    getNotesFunc.addToRolePolicy(new PolicyStatement({
-        actions: ['dynamodb:Query'],
-        resources: [props.notesTableArn, `${props.notesTableArn}/index/TimestampIndex`]
-    }))
+    deleteNotesFunc.addToRolePolicy(
+        new PolicyStatement({
+            actions: ['dynamodb:DeleteItem'],
+            resources: [props.notesTableArn]
+        }))
 
-    return getNotesFunc
+    return deleteNotesFunc
 }

@@ -1,15 +1,13 @@
-import { BookProps } from "@/types/types";
+import { NoteProps } from "@/types/types";
 
-export async function createBook({ title, author, description, year ,jwt }: { title: string, author: string, description: string, year: string , jwt: string}): Promise<BookProps | null> {
+export async function createNote({ title,  description,jwt }: { title: string, description: string, jwt: string}): Promise<NoteProps | null> {
     const baseURL = process.env.APIGatewayURL;
 
   // console.log(`APIGatewayURL: ${baseURL}`);
 
-    const book = {
+    const note = {
         title,
-        // author,
         description,
-        // year,
     };
 
     try {
@@ -22,7 +20,7 @@ export async function createBook({ title, author, description, year ,jwt }: { ti
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwt}`,
             },
-            body: JSON.stringify(book),
+            body: JSON.stringify(note),
         });
 
         if (!response.ok) {
@@ -30,9 +28,9 @@ export async function createBook({ title, author, description, year ,jwt }: { ti
         }
 
 
-        return response as unknown as BookProps;
+        return response as unknown as NoteProps;
     } catch (error) {
-        console.error(`Error in createBook: ${error}`);
+        console.error(`Error in createNote: ${error}`);
         return null;
     }
 }
