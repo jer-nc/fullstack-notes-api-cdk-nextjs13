@@ -8,6 +8,10 @@ This is an updated version of the [Fullstack Book App](https://github.com/jer-nc
 
 ![](frontend/public/assets/cdk-crud-books-nextj13.webp)
 
+## Demo Website
+
+The demo website is available [here](https://main.d31bb2ix4eqyp8.amplifyapp.com/).
+
 ## CDK
 
 ### Creation of the NotesTable
