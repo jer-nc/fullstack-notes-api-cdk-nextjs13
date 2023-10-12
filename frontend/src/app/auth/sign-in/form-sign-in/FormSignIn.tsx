@@ -110,7 +110,7 @@ const FormSignIn = () => {
                     )}
                     <div className='pt-4 flex gap-2 items-center'>
                         <p className='text-sm text-muted-foreground'>You don&apos;t have an account yet?</p>
-                        <Link href="/auth/sign-up" className='text-blue-500 font-semibold hover:underline'>Sign Up</Link>
+                        <Link href="/auth/sign-up" className='text-orange-500 font-semibold hover:underline'>Sign Up</Link>
                     </div>
                     {!loading ?
                         <Button variant='primary' size='primary' type='submit' className='py-6'>

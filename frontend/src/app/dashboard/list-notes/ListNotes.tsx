@@ -71,7 +71,7 @@ const ListNotes = () => {
                             <PopoverCard note={note} />
                           </div>
                         </div>
-                        <CardDescription>{note.description}</CardDescription>
+                        <CardDescription>{note.description ? note.description : 'N/A'}</CardDescription>
                       </CardHeader>
                       <CardContent className='p-0'>
                         <ScrollArea className="h-[200px] px-6 py-2">
@@ -79,7 +79,7 @@ const ListNotes = () => {
                         </ScrollArea>
                       </CardContent>
                       <CardFooter>
-                        <p>
+                        <p className='text-sm'>
                           <span className='text-muted-foreground'>Last Update:</span> {note.Timestamp ? formatTimeAgo(note.Timestamp) : 'N/A'}
                         </p>
                       </CardFooter>

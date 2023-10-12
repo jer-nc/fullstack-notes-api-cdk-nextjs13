@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button"
 import { useRouter, useSearchParams } from 'next/navigation'
 import { NoteResponse } from "@/types/types"
 import { useEffect, useState } from "react"
-import { getBookById } from "./getBookById"
+import { getNoteById } from "./getNoteById"
 import { editNote } from "./editNote"
 import { getUser } from "@/lib/getUser"
 import { CognitoUserSession } from "amazon-cognito-identity-js"
@@ -68,13 +68,13 @@ const EditNoteForm = () => {
 
     useEffect(() => {
         try {
-            const getBook = async () => {
+            const getNote = async () => {
                 const { session } = await getUser() as { session: CognitoUserSession }
                 if (session) {
                     const jwt = session.getIdToken().getJwtToken()
                     // console.log(jwt)
                     if (!id) return console.log('No id found')
-                    const res = await getBookById({ id, jwt });
+                    const res = await getNoteById({ id, jwt });
 
                     if (res) {
                       // console.log(res)
@@ -88,7 +88,7 @@ const EditNoteForm = () => {
                     }
                 }
             }
-            getBook()
+            getNote()
         } catch (error) {
           // console.log(error)
             throw new Error(String(error))

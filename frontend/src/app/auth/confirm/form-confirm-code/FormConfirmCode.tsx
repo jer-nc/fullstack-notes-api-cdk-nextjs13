@@ -130,7 +130,7 @@ const FormConfirmCode = () => {
                                 </p>
                                 <Button
                                     variant='link'
-                                    className='text-blue-500 font-semibold p-0'
+                                    className='text-orange-500 font-semibold p-0'
                                     onClick={handleResendCode}
                                     type='button'
                                 >
