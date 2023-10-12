@@ -1,18 +1,24 @@
 import { BookResponse } from "@/types/types";
 
 export async function editBook(book: BookResponse) {
-    const { title, author, description, year, id, jwt } = book
+    const { title, id, description, jwt } = book
 
     const baseURL = process.env.APIGatewayURL;
 
+    const bookToEdit = {
+        title,
+        NoteId: id,
+        description,
+    };
+
     try {
-        const response = await fetch(`${baseURL}/books`, {
+        const response = await fetch(`${baseURL}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwt}`,
             },
-            body: JSON.stringify({ title, author, description, year, id })
+            body: JSON.stringify(bookToEdit)
         });
 
         if (!response.ok) {

@@ -48,7 +48,7 @@ const EditBookForm = () => {
 
             if (session) {
                 const jwt = session.getIdToken().getJwtToken()
-                const newBook: BookResponse = { title, author, description, year, id: id as string, jwt }
+                const newBook: BookResponse = { title, description, id: id as string, jwt }
                 const res = await editBook(newBook) as any
     
               // console.log(res)
@@ -82,9 +82,9 @@ const EditBookForm = () => {
                       // console.log(res)
                         // set values inputs with res data react hook form 
                         form.setValue('title', res.title)
-                        form.setValue('author', res.author)
+                        // form.setValue('author', res.author)
                         form.setValue('description', res.description)
-                        form.setValue('year', res.year)
+                        // form.setValue('year', res.year)
                         // form.setValue('id', id)
                         setDataLoaded(true)
 

@@ -17,6 +17,7 @@ import { getUser } from '@/lib/getUser'
 import { useBookStore } from '@/store/bookStore'
 import NoBooksFound from '../../../components/custom/skeletons/NoBooksFound'
 import { generateSkeletonCards } from '../../../components/custom/skeletons/genarateSkeletonCards'
+import { formatTimeAgo } from '@/lib/formatTimeAgo'
 
 
 const ListBooks = () => {
@@ -80,7 +81,7 @@ const ListBooks = () => {
                       </CardContent>
                       <CardFooter>
                         <p>
-                          <span className='text-muted-foreground'>Published:</span> {book.year ? book.year : 'N/A'}
+                          <span className='text-muted-foreground'>Last Update:</span> {book.Timestamp ? formatTimeAgo(book.Timestamp) : 'N/A'}
                         </p>
                       </CardFooter>
                     </Card>
